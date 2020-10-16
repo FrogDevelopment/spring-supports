@@ -1,0 +1,6 @@
+rootProject.name = 'spring-supports'
+
+include 'administration',
+        'config-server',
+        'gateway',
+        'registry'

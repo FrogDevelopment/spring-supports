@@ -1,0 +1,11 @@
+eureka:
+  client:
+    enabled: false
+
+logging:
+  config: classpath:logback-spring-test.xml
+
+docker-secrets:
+  frog_admin_user: user_test
+  frog_admin_password: user_password
+  slack_webhook: ${random.uuid}
