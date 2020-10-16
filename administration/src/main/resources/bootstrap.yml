@@ -1,6 +1,6 @@
 spring:
   application:
-    name: service-administration
+    name: support-administration
 
 eureka:
   instance:
@@ -14,4 +14,4 @@ eureka:
     fetch-registry: true
     registry-fetch-interval-seconds: 5
     service-url:
-      defaultZone: http://${docker-secrets.frog_admin_user}:${docker-secrets.frog_admin_password}@service-registry:8080/eureka/
+      defaultZone: http://${docker-secrets.frog_admin_user}:${docker-secrets.frog_admin_password}@support-registry:8080/eureka/

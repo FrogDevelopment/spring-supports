@@ -9,7 +9,7 @@
         </encoder>
     </appender>
 
-    <!--<logger name="fr.frogdevelopment.nihongo.dico" level="TRACE"/>-->
+    <!--<logger name="com.frogdevelopment.nihongo.dico" level="TRACE"/>-->
     <!--<logger name="org.springframework.jdbc" level="TRACE"/>-->
 
     <root level="INFO">

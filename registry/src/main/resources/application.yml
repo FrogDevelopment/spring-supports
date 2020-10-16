@@ -28,4 +28,4 @@ management:
 logging:
   level:
     root: INFO
-    fr.frogdevelopment: DEBUG
+    com.frogdevelopment: DEBUG
