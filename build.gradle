@@ -72,7 +72,7 @@ subprojects {
             image = 'frogdevelopment/docker-adoptopenjdk14-curl:latest'
         }
         to {
-            image = "docker-registry.frog-development.com/spring-supports/support-${project.name}"
+            image = "springsupports/support-${project.name}"
             tags = [version.toString()]
         }
         container {
