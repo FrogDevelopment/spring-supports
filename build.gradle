@@ -40,7 +40,7 @@ subprojects {
         implementation "com.frog-development:docker-secrets-module:$dockerSecretsVersion"
 
         implementation 'org.jolokia:jolokia-core'
-        implementation 'net.logstash.logback:logstash-logback-encoder:6.3'
+        implementation 'net.logstash.logback:logstash-logback-encoder:6.5'
 
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
