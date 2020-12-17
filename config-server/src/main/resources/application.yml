@@ -1,13 +1,9 @@
 server:
   port: 8080
-  max-http-header-size: 100KB
 
 spring:
   main:
     banner-mode: 'off'
-
-  jmx:
-    enabled: true
 
   security:
     user:
@@ -33,12 +29,9 @@ management:
   server:
     port: 8081
   endpoint:
-    env:
-      post:
-        enabled: true # allow the Environment Manager for Context refresh
     health:
       enabled: true
-    restart:
+    loggers:
       enabled: true
   endpoints:
     web:
@@ -47,5 +40,4 @@ management:
 
 logging:
   level:
-    root: INFO
-    com.frogdevelopment: DEBUG
+    root: WARN

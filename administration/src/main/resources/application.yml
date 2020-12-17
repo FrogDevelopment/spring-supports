@@ -6,9 +6,6 @@ spring:
   main:
     banner-mode: 'off'
 
-  jmx:
-    enabled: true
-
   security:
     user:
       name: ${docker-secrets.frog_admin_user}
@@ -27,10 +24,7 @@ management:
         enabled: true
     health:
       enabled: true
-    restart:
-      enabled: true
 
 logging:
   level:
-    root: INFO
-    com.frogdevelopment: DEBUG
+    root: WARN
