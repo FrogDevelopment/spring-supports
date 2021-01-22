@@ -23,3 +23,4 @@ eureka:
   client:
     service-url:
       defaultZone: http://${docker-secrets.frog_admin_user}:${docker-secrets.frog_admin_password}@support-registry:8080/eureka/
+    register-with-eureka: true

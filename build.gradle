@@ -14,7 +14,7 @@ subprojects {
 
     group = 'com.frog-development'
 
-    version = 'Hoxton.SR9'
+    version = '2020.0.0'
 
     sourceCompatibility = JavaVersion.VERSION_14
     targetCompatibility = JavaVersion.VERSION_14
@@ -35,12 +35,12 @@ subprojects {
         def dockerSecretsVersion = '1.0.0'
 
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
 
         implementation "com.frog-development:docker-secrets-module:$dockerSecretsVersion"
 
         implementation 'org.jolokia:jolokia-core'
         implementation 'net.logstash.logback:logstash-logback-encoder:6.6'
+        implementation 'com.github.ben-manes.caffeine:caffeine:2.8.5'
 
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -88,6 +88,6 @@ subprojects {
 }
 
 wrapper {
-    gradleVersion = '6.6.1'
+    gradleVersion = '6.8.1'
     distributionType = Wrapper.DistributionType.ALL
 }
