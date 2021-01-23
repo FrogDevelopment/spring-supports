@@ -8,3 +8,8 @@ logging:
 docker-secrets:
   frog_admin_user: user_test
   frog_admin_password: user_password
+
+spring:
+  application:
+    admin:
+      enabled: false
