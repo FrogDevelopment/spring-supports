@@ -80,8 +80,8 @@ subprojects {
             creationTime = 'USE_CURRENT_TIMESTAMP'
             labels = [
                     'frog.image_base': jib.from.image,
-                    'spring.version'   : version.toString(),
-                    'spring-boot.version'   : '2.3.7.RELEASE'
+                    'spring-cloud.version'   : version.toString(),
+                    'spring-boot.version'   : '2.4.2'
             ]
         }
     }
