@@ -1,5 +1,6 @@
 server:
   port: 8080
+  forward-headers-strategy: framework
 
 management:
   server:
@@ -38,6 +39,13 @@ spring:
   cloud:
     ## ROUTING CONFIGURATION
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+        add-to-simple-url-handler-mapping: true
       discovery:
         locator:
           enabled: true
