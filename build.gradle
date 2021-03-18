@@ -14,7 +14,7 @@ subprojects {
 
     group = 'com.frog-development'
 
-    version = '2020.0.1'
+    version = '2020.0.2'
 
     sourceCompatibility = JavaVersion.VERSION_14
     targetCompatibility = JavaVersion.VERSION_14
