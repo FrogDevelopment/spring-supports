@@ -20,7 +20,7 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_14
 
     repositories {
-        jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
     }
 
@@ -46,8 +46,8 @@ subprojects {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
 
-        testRuntime 'org.junit.platform:junit-platform-runner'
-        testRuntime 'org.junit.jupiter:junit-jupiter-engine'
+        testRuntimeOnly 'org.junit.platform:junit-platform-runner'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     }
 
     tasks.withType(JavaCompile) {
@@ -88,6 +88,6 @@ subprojects {
 }
 
 wrapper {
-    gradleVersion = '6.8.1'
+    gradleVersion = '7.0.2'
     distributionType = Wrapper.DistributionType.ALL
 }
