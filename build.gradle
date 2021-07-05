@@ -40,7 +40,7 @@ subprojects {
 
         implementation 'org.jolokia:jolokia-core'
         implementation 'net.logstash.logback:logstash-logback-encoder:6.6'
-        implementation 'com.github.ben-manes.caffeine:caffeine:3.0.2'
+        implementation 'com.github.ben-manes.caffeine:caffeine:3.0.3'
 
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
