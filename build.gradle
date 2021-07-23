@@ -16,8 +16,8 @@ subprojects {
 
     version = '2020.0.2'
 
-    sourceCompatibility = JavaVersion.VERSION_14
-    targetCompatibility = JavaVersion.VERSION_14
+    sourceCompatibility = JavaVersion.VERSION_15
+    targetCompatibility = JavaVersion.VERSION_15
 
     repositories {
         mavenCentral()
@@ -59,7 +59,7 @@ subprojects {
     }
 
     test {
-        reports.html.enabled = false
+        reports.html.required = false
 
         useJUnitPlatform {
         }
@@ -67,7 +67,7 @@ subprojects {
 
     jib {
         from {
-            image = 'frogdevelopment/docker-adoptopenjdk14-curl:latest'
+            image = 'frogdevelopment/docker-adoptopenjdk15-curl:latest'
         }
         to {
             image = "springsupports/support-${project.name}"
@@ -88,6 +88,6 @@ subprojects {
 }
 
 wrapper {
-    gradleVersion = '7.0.2'
+    gradleVersion = '7.1.1'
     distributionType = Wrapper.DistributionType.ALL
 }
