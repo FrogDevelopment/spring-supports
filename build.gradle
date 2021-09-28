@@ -1,6 +1,6 @@
 plugins {
     id 'io.freefair.lombok' version '6.2.0' apply false
-    id 'com.google.cloud.tools.jib' version '3.1.2' apply false
+    id 'com.google.cloud.tools.jib' version '3.1.4' apply false
     id 'fr.brouillard.oss.gradle.jgitver' version '0.9.1' apply false
     id 'org.springframework.boot' version '2.5.3' apply false
     id 'io.spring.dependency-management' version '1.0.11.RELEASE' apply false
@@ -40,7 +40,7 @@ subprojects {
 
         implementation 'org.jolokia:jolokia-core'
         implementation 'net.logstash.logback:logstash-logback-encoder:6.6'
-        implementation 'com.github.ben-manes.caffeine:caffeine:3.0.3'
+        implementation 'com.github.ben-manes.caffeine:caffeine:3.0.4'
 
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
