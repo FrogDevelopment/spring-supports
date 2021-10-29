@@ -1,7 +1,12 @@
 package com.frogdevelopment.config.environment.secrets;
 
-import static java.lang.String.format;
-import static org.springframework.util.StringUtils.commaDelimitedListToStringArray;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.cloud.config.environment.Environment;
+import org.springframework.cloud.config.environment.PropertySource;
+import org.springframework.cloud.config.server.environment.EnvironmentRepository;
+import org.springframework.core.Ordered;
+import org.springframework.core.io.ByteArrayResource;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,13 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
-import org.springframework.cloud.config.environment.Environment;
-import org.springframework.cloud.config.environment.PropertySource;
-import org.springframework.cloud.config.server.environment.EnvironmentRepository;
-import org.springframework.core.Ordered;
-import org.springframework.core.io.ByteArrayResource;
+
+import static java.lang.String.format;
+import static org.springframework.util.StringUtils.commaDelimitedListToStringArray;
 
 @Slf4j
 public class SecretsEnvironmentRepository implements EnvironmentRepository, Ordered {
@@ -83,7 +84,7 @@ public class SecretsEnvironmentRepository implements EnvironmentRepository, Orde
     private void loadDockerSecrets(Environment environment, String fileName) {
         var path = Paths.get(pathValue, fileName);
         if (Files.exists(path)) {
-            log.info("Adding property source: file={}", path.toFile().getAbsolutePath());
+            log.debug("Adding property source: file={}", path.toFile().getAbsolutePath());
             try {
                 var data = Files.readString(path);
                 if (data != null) {
