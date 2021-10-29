@@ -1,5 +1,7 @@
 package com.frogdevelopment.config.environment.secrets;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.cloud.config.environment.Environment;
@@ -9,11 +11,13 @@ import org.springframework.core.Ordered;
 import org.springframework.core.io.ByteArrayResource;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -25,11 +29,15 @@ public class SecretsEnvironmentRepository implements EnvironmentRepository, Orde
     private static final String APPLICATION = "application";
 
     private final int order;
-    private final String pathValue;
+    private final String secretsLocation;
+
+    private final Cache<URI, Properties> cache = Caffeine.newBuilder()
+            .maximumSize(50)
+            .build();
 
     public SecretsEnvironmentRepository(SecretsEnvironmentProperties properties) {
         this.order = properties.getOrder();
-        this.pathValue = properties.getLocation();
+        this.secretsLocation = properties.getLocation();
     }
 
     @Override
@@ -41,7 +49,7 @@ public class SecretsEnvironmentRepository implements EnvironmentRepository, Orde
     public Environment findOne(String applicationName, String profileName, String label) {
         log.debug("Looking for applicationName={}, profile={}, label={}", applicationName, profileName, label);
 
-        var profiles = new String[] {profileName};
+        var profiles = new String[]{profileName};
         if (profileName != null) {
             profiles = commaDelimitedListToStringArray(profileName);
         }
@@ -72,7 +80,7 @@ public class SecretsEnvironmentRepository implements EnvironmentRepository, Orde
 
     private static List<String> getApplications(String applicationName) {
         var applications = Arrays.stream(commaDelimitedListToStringArray(applicationName))
-                .filter(app-> !APPLICATION.equals(app))
+                .filter(app -> !APPLICATION.equals(app))
                 .collect(Collectors.toList());
 
         // so 'application' is always at the last position
@@ -82,25 +90,30 @@ public class SecretsEnvironmentRepository implements EnvironmentRepository, Orde
     }
 
     private void loadDockerSecrets(Environment environment, String fileName) {
-        var path = Paths.get(pathValue, fileName);
-        if (Files.exists(path)) {
-            log.debug("Adding property source: file={}", path.toFile().getAbsolutePath());
-            try {
-                var data = Files.readString(path);
-                if (data != null) {
-                    var yaml = new YamlPropertiesFactoryBean();
-                    yaml.setResources(new ByteArrayResource(data.getBytes()));
-                    var properties = yaml.getObject();
+        var path = Paths.get(secretsLocation, fileName);
 
-                    if (properties != null && !properties.isEmpty()) {
-                        environment.add(new PropertySource("secrets:" + fileName, properties));
+        var properties = cache.get(path.toUri(), uri -> {
+            if (Files.exists(path)) {
+                log.debug("Adding property source: file={}", path.toFile().getAbsolutePath());
+                try {
+                    var data = Files.readString(path);
+                    if (data != null) {
+                        var yaml = new YamlPropertiesFactoryBean();
+                        yaml.setResources(new ByteArrayResource(data.getBytes()));
+                        return yaml.getObject();
                     }
+                } catch (IOException e) {
+                    log.error(format("Unreadable: %s", path.toFile().getAbsolutePath()), e);
                 }
-            } catch (IOException e) {
-                log.error(format("Unreadable: %s", path.toFile().getAbsolutePath()), e);
+            } else {
+                log.debug("{} doesn't exists, skipping it.", path.toFile().getAbsolutePath());
             }
-        } else {
-            log.debug("{} doesn't exists, skipping it.", path.toFile().getAbsolutePath());
+
+            return null;
+        });
+
+        if (properties != null && !properties.isEmpty()) {
+            environment.add(new PropertySource("secrets:" + fileName, properties));
         }
     }
 
