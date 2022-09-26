@@ -51,6 +51,13 @@ spring:
           uri: ${docker-secrets.git_uri}
           default-label: ${GIT_LABEL:master}
           refresh-rate: 10
+          ignore-local-ssh-settings: true
+          host-key-algorithm: ecdsa-sha2-nistp256
+          host-key: ${docker-secrets.host-key}
+          strict-host-key-checking: false
+          private-key: ${docker-secrets.private-key}
+          clone-on-start: true
+          force-pull: true
 
   profiles:
     active: git, secrets

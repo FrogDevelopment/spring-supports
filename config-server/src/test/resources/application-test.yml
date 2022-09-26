@@ -13,3 +13,8 @@ spring:
   application:
     admin:
       enabled: false
+
+  cloud:
+    config:
+      server:
+        enabled: false
