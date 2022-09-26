@@ -27,7 +27,7 @@ subprojects {
     dependencyManagement {
         imports {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:$version"
-            mavenBom 'org.junit:junit-bom:5.9.0'
+            mavenBom 'org.junit:junit-bom:5.9.1'
         }
     }
 
