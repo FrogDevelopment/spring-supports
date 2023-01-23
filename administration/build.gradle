@@ -1,6 +1,6 @@
 dependencyManagement {
     imports {
-        mavenBom 'de.codecentric:spring-boot-admin-dependencies:2.7.4'
+        mavenBom 'de.codecentric:spring-boot-admin-dependencies:3.0.0'
     }
 }
 
